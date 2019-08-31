@@ -16,18 +16,18 @@ abstract class BaseActivity : AppCompatActivity() {
             layoutInflater.inflate(R.layout.activity_base, null) as ConstraintLayout
         val frameLayout: FrameLayout =
             constrainLayout.findViewById(R.id.activity_content)
-        progressBar = constrainLayout.findViewById(R.id.progress_bar)
 
+        progressBar = constrainLayout.findViewById(R.id.progress_bar)
         layoutInflater.inflate(layoutResID, frameLayout, true)
 
-        super.setContentView(layoutResID)
+        super.setContentView(constrainLayout)
     }
 
-    fun showProgressBar(visibility: Boolean) {
-        if (visibility) {
-            View.VISIBLE
+    fun showProgressBar(isVisible: Boolean) {
+        if (isVisible) {
+            progressBar.visibility = View.VISIBLE
         } else {
-            View.INVISIBLE
+            progressBar.visibility = View.INVISIBLE
         }
     }
 }
