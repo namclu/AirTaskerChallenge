@@ -8,15 +8,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 * Generates an implementation of the TaskApi interface
 * */
 class ServiceGenerator {
-    // Add okhttp logging interceptor
-//    var interceptor = HttpLoggingInterceptor()
-//    var httpClient = OkHttpClient()
-//
-//    init {
-//        interceptor = HttpLoggingInterceptor()
-//        interceptor.level = HttpLoggingInterceptor.Level.BODY
-//        httpClient.newBuilder().addInterceptor(interceptor).build()
-//    }
 
     companion object {
         private val retrofitBuilder = Retrofit.Builder()

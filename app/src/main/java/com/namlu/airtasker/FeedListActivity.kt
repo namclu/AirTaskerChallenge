@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import com.namlu.airtasker.models.FeedItem
 import com.namlu.airtasker.requests.ServiceGenerator
-import com.namlu.airtasker.requests.responses.FeedItemResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,20 +39,19 @@ class FeedListActivity : BaseActivity() {
         val feedItemApi = ServiceGenerator.getFeedItemApi()
 
         // Get a list of feed items
-        val responseCall: Call<FeedItemResponse> = feedItemApi.getFeedItems()
+        val responseCall: Call<List<FeedItem>> = feedItemApi.getFeedItems()
 
-        responseCall.enqueue(object: Callback<FeedItemResponse> {
-            override fun onFailure(call: Call<FeedItemResponse>, t: Throwable) {
+        responseCall.enqueue(object: Callback<List<FeedItem>> {
+            override fun onFailure(call: Call<List<FeedItem>>, t: Throwable) {
                 Log.e(TAG, "onResponse: ERROR: " + t.message)
             }
 
-            override fun onResponse(call: Call<FeedItemResponse>, response: Response<FeedItemResponse>) {
+            override fun onResponse(call: Call<List<FeedItem>>, response: Response<List<FeedItem>>) {
                 Log.d(TAG, "responseCall: $response")
                 if (response.code() == 200) {
                     Log.d(TAG, "onResponse: ${response.body()}")
-                    val feedItems  = ArrayList(response.body()?.getFeedItems())
-                    for (feedItem in feedItems) {
-                        Log.d(TAG, "onResponse: ${feedItem.profile_id}")
+                    for (item in response.body().orEmpty()) {
+                        Log.d(TAG, "onResponse: ${item.profile_id}")
                     }
                 } else {
                     try {

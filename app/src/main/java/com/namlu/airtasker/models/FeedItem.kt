@@ -2,6 +2,7 @@ package com.namlu.airtasker.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 /*
@@ -16,14 +17,19 @@ import com.google.gson.annotations.SerializedName
   }
 * */
 data class FeedItem(
+    @Expose
     @SerializedName("task_id")
     val task_id: Int,
+    @Expose
     @SerializedName("profile_id")
     val profile_id: Int,
+    @Expose
     @SerializedName("text")
     val task_text: String?,
+    @Expose
     @SerializedName("created_at")
     val created_at: String?,
+    @Expose
     @SerializedName("event")
     val event: String?
 ) : Parcelable {

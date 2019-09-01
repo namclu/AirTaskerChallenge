@@ -1,6 +1,6 @@
 package com.namlu.airtasker.requests
 
-import com.namlu.airtasker.requests.responses.FeedItemResponse
+import com.namlu.airtasker.models.FeedItem
 import retrofit2.Call
 import retrofit2.http.GET
 
@@ -12,5 +12,5 @@ interface FeedItemApi {
     // Get a list of feed items
     // https://stage.airtasker.com/android-code-test/feed.json
     @GET("android-code-test/feed.json")
-    fun getFeedItems(): Call<FeedItemResponse>
+    fun getFeedItems(): Call<List<FeedItem>>
 }
