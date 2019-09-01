@@ -1,6 +1,7 @@
 package com.namlu.airtasker.requests
 
 import com.namlu.airtasker.models.FeedItem
+import com.namlu.airtasker.models.ProfileItem
 import com.namlu.airtasker.models.TaskItem
 import retrofit2.Call
 import retrofit2.http.GET
@@ -22,4 +23,11 @@ interface FeedItemApi {
     fun getTaskItem(
         @Path("id") id: Int
     ): Call<TaskItem>
+
+    //  Get a profile item
+    // https://stage.airtasker.com/android-code-test/profile/1.json
+    @GET("android-code-test/profile/{id}.json")
+    fun getProfileItem(
+        @Path("id") id: Int
+    ) : Call<ProfileItem>
 }

@@ -2,6 +2,8 @@ package com.namlu.airtasker.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
 /*
 * Model for a single task item
@@ -18,11 +20,23 @@ import android.os.Parcelable
 }
 * */
 data class TaskItem(
+    @Expose
+    @SerializedName("id")
     val id: Int,
+    @Expose
+    @SerializedName("name")
     val name: String?,
+    @Expose
+    @SerializedName("description")
     val description: String?,
+    @Expose
+    @SerializedName("state")
     val state: String?,
+    @Expose
+    @SerializedName("poster_id")
     val poster_id: Int,
+    @Expose
+    @SerializedName("worker_id")
     val worker_id: Int
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
