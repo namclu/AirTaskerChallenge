@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import com.namlu.airtasker.models.FeedItem
+import com.namlu.airtasker.models.TaskItem
 import com.namlu.airtasker.requests.ServiceGenerator
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,14 +29,14 @@ class FeedListActivity : BaseActivity() {
         // test showProgressBar()
         buttonTest.setOnClickListener(object: View.OnClickListener {
             override fun onClick(v: View?) {
-                Log.d(TAG, "onClick() called")
-                testRetrofitRequest()
+//                testFeedItemResponse()
+                testTaskItemResponse()
             }
 
         })
     }
 
-    fun testRetrofitRequest() {
+    fun testFeedItemResponse() {
         val feedItemApi = ServiceGenerator.getFeedItemApi()
 
         // Get a list of feed items
@@ -53,6 +54,32 @@ class FeedListActivity : BaseActivity() {
                     for (item in response.body().orEmpty()) {
                         Log.d(TAG, "onResponse: ${item.profile_id}")
                     }
+                } else {
+                    try {
+                        Log.e(TAG, "onResponse: ${response.errorBody()}")
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+        })
+    }
+
+    fun testTaskItemResponse() {
+        val feedItemApi = ServiceGenerator.getFeedItemApi()
+
+        // Get a task item
+        val responseCall: Call<TaskItem> = feedItemApi.getTaskItem(4)
+
+        responseCall.enqueue(object : Callback<TaskItem> {
+            override fun onFailure(call: Call<TaskItem>, t: Throwable) {
+                Log.e(TAG, "onResponse: ERROR: " + t.message)
+            }
+
+            override fun onResponse(call: Call<TaskItem>, response: Response<TaskItem>) {
+                Log.d(TAG, "responseCall: $response")
+                if (response.code() == 200) {
+                    Log.d(TAG, "onResponse: ${response.body()}")
                 } else {
                     try {
                         Log.e(TAG, "onResponse: ${response.errorBody()}")
