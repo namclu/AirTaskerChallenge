@@ -42,14 +42,14 @@
             app:layout_constraintTop_toBottomOf="@id/text_feed_text">
 
             <TextView
-                android:id="@+id/text_feed_created_at"
+                android:id="@+id/text_created_at"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 tools:text="Created at of feed" />
 
             <TextView
-                android:id="@+id/text_feed_event"
+                android:id="@+id/text_event"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"

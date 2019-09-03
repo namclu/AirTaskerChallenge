@@ -2,12 +2,13 @@ package com.namlu.airtasker
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.Button
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.namlu.airtasker.adapters.FeedItemAdapter
 import com.namlu.airtasker.models.FeedItem
 import com.namlu.airtasker.models.ProfileItem
 import com.namlu.airtasker.models.TaskItem
 import com.namlu.airtasker.requests.ServiceGenerator
+import kotlinx.android.synthetic.main.activity_feed_list.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,9 +16,9 @@ import java.io.IOException
 
 class FeedListActivity : BaseActivity() {
 
-    private lateinit var buttonTest: Button
+    private lateinit var feedItemAdapter: FeedItemAdapter
 
-    companion object{
+    companion object {
         const val TAG = "FeedListActivity"
     }
 
@@ -25,17 +26,12 @@ class FeedListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed_list)
 
-        buttonTest = findViewById(R.id.button_test)
-
-        // test showProgressBar()
-        buttonTest.setOnClickListener(object: View.OnClickListener {
-            override fun onClick(v: View?) {
-//                testFeedItemResponse()
-//                testTaskItemResponse()
-                testProfileItemResponse()
-            }
-
-        })
+        recycler_feed_list.apply {
+            layoutManager = LinearLayoutManager(this@FeedListActivity)
+            feedItemAdapter = FeedItemAdapter()
+            adapter = feedItemAdapter
+        }
+        testFeedItemResponse()
     }
 
     // Get a list of feed items
@@ -44,7 +40,7 @@ class FeedListActivity : BaseActivity() {
 
         val responseCall: Call<List<FeedItem>> = feedItemApi.getFeedItems()
 
-        responseCall.enqueue(object: Callback<List<FeedItem>> {
+        responseCall.enqueue(object : Callback<List<FeedItem>> {
             override fun onFailure(call: Call<List<FeedItem>>, t: Throwable) {
                 Log.e(TAG, "onResponse: ERROR: " + t.message)
             }
@@ -52,6 +48,9 @@ class FeedListActivity : BaseActivity() {
             override fun onResponse(call: Call<List<FeedItem>>, response: Response<List<FeedItem>>) {
                 Log.d(TAG, "responseCall: $response")
                 if (response.code() == 200) {
+
+                    response.body()?.let { feedItemAdapter.setFeedItems(it) }
+
                     Log.d(TAG, "onResponse: ${response.body()}")
                     for (item in response.body().orEmpty()) {
                         Log.d(TAG, "onResponse: ${item.profile_id}")
