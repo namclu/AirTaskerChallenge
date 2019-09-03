@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import com.namlu.airtasker.models.FeedItem
+import com.namlu.airtasker.models.ProfileItem
 import com.namlu.airtasker.models.TaskItem
 import com.namlu.airtasker.requests.ServiceGenerator
 import retrofit2.Call
@@ -30,16 +31,17 @@ class FeedListActivity : BaseActivity() {
         buttonTest.setOnClickListener(object: View.OnClickListener {
             override fun onClick(v: View?) {
 //                testFeedItemResponse()
-                testTaskItemResponse()
+//                testTaskItemResponse()
+                testProfileItemResponse()
             }
 
         })
     }
 
+    // Get a list of feed items
     fun testFeedItemResponse() {
         val feedItemApi = ServiceGenerator.getFeedItemApi()
 
-        // Get a list of feed items
         val responseCall: Call<List<FeedItem>> = feedItemApi.getFeedItems()
 
         responseCall.enqueue(object: Callback<List<FeedItem>> {
@@ -65,10 +67,10 @@ class FeedListActivity : BaseActivity() {
         })
     }
 
+    // Get a task item
     fun testTaskItemResponse() {
         val feedItemApi = ServiceGenerator.getFeedItemApi()
 
-        // Get a task item
         val responseCall: Call<TaskItem> = feedItemApi.getTaskItem(4)
 
         responseCall.enqueue(object : Callback<TaskItem> {
@@ -77,6 +79,32 @@ class FeedListActivity : BaseActivity() {
             }
 
             override fun onResponse(call: Call<TaskItem>, response: Response<TaskItem>) {
+                Log.d(TAG, "responseCall: $response")
+                if (response.code() == 200) {
+                    Log.d(TAG, "onResponse: ${response.body()}")
+                } else {
+                    try {
+                        Log.e(TAG, "onResponse: ${response.errorBody()}")
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+        })
+    }
+
+    // Get a profile item
+    fun testProfileItemResponse() {
+        val feedItemApi = ServiceGenerator.getFeedItemApi()
+
+        val responseCall: Call<ProfileItem> = feedItemApi.getProfileItem(1)
+
+        responseCall.enqueue(object : Callback<ProfileItem> {
+            override fun onFailure(call: Call<ProfileItem>, t: Throwable) {
+                Log.e(TAG, "onResponse: ERROR: " + t.message)
+            }
+
+            override fun onResponse(call: Call<ProfileItem>, response: Response<ProfileItem>) {
                 Log.d(TAG, "responseCall: $response")
                 if (response.code() == 200) {
                     Log.d(TAG, "onResponse: ${response.body()}")
