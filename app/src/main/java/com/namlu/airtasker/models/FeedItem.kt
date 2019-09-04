@@ -25,50 +25,11 @@ data class FeedItem(
     val profile_id: Int,
     @Expose
     @SerializedName("text")
-    val task_text: String?,
+    val task_text: String,
     @Expose
     @SerializedName("created_at")
-    val created_at: String?,
+    val created_at: String,
     @Expose
     @SerializedName("event")
-    val event: String?
-) : Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readInt(),
-        parcel.readInt(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString()
-    )
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(task_id)
-        parcel.writeInt(profile_id)
-        parcel.writeString(task_text)
-        parcel.writeString(created_at)
-        parcel.writeString(event)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    override fun toString(): String {
-        return "FeedItem(" +
-                "task_id=$task_id, " +
-                "profile_id=$profile_id, " +
-                "task_text=$task_text, " +
-                "created_at=$created_at, " +
-                "event=$event)"
-    }
-
-    companion object CREATOR : Parcelable.Creator<FeedItem> {
-        override fun createFromParcel(parcel: Parcel): FeedItem {
-            return FeedItem(parcel)
-        }
-
-        override fun newArray(size: Int): Array<FeedItem?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
+    val event: String
+)

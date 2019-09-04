@@ -3,7 +3,7 @@ package com.namlu.airtasker.requests
 import com.namlu.airtasker.models.FeedItem
 import com.namlu.airtasker.models.ProfileItem
 import com.namlu.airtasker.models.TaskItem
-import retrofit2.Call
+import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -12,22 +12,22 @@ import retrofit2.http.Path
 * */
 interface FeedItemApi {
 
-    // Get a list of feed items
+   // Get a list of feed items
     // https://stage.airtasker.com/android-code-test/feed.json
     @GET("android-code-test/feed.json")
-    fun getFeedItems(): Call<List<FeedItem>>
+    fun getFeedItemsObservable(): Observable<List<FeedItem>>
 
     // Get a task item
     // https://stage.airtasker.com/android-code-test/task/4.json
     @GET("android-code-test/task/{id}.json")
-    fun getTaskItem(
+    fun getTaskItemObservable(
         @Path("id") id: Int
-    ): Call<TaskItem>
+    ): Observable<TaskItem>
 
     //  Get a profile item
     // https://stage.airtasker.com/android-code-test/profile/1.json
     @GET("android-code-test/profile/{id}.json")
-    fun getProfileItem(
+    fun getProfileItemObservable(
         @Path("id") id: Int
-    ) : Call<ProfileItem>
+    ) : Observable<ProfileItem>
 }
