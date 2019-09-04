@@ -1,7 +1,5 @@
 package com.namlu.airtasker.models
 
-import android.os.Parcel
-import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -25,44 +23,17 @@ data class TaskItem(
     val id: Int,
     @Expose
     @SerializedName("name")
-    val name: String?,
+    val name: String,
     @Expose
     @SerializedName("description")
-    val description: String?,
+    val description: String,
     @Expose
     @SerializedName("state")
-    val state: String?,
+    val state: String,
     @Expose
     @SerializedName("poster_id")
     val poster_id: Int,
     @Expose
     @SerializedName("worker_id")
     val worker_id: Int
-) : Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readInt(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readInt(),
-        parcel.readInt()
-    )
-
-    override fun writeToParcel(dest: Parcel?, flags: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun describeContents(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    companion object CREATOR : Parcelable.Creator<TaskItem> {
-        override fun createFromParcel(parcel: Parcel): TaskItem {
-            return TaskItem(parcel)
-        }
-
-        override fun newArray(size: Int): Array<TaskItem?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
+)
