@@ -11,18 +11,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ServiceGenerator {
 
     companion object {
-        private val retrofitBuilder = Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-
-        private val retrofit = retrofitBuilder.build()
-
-        private val feedItemApi = retrofit.create(FeedItemApi::class.java)
-
-        fun getFeedItemApi(): FeedItemApi {
-            return feedItemApi
-        }
-
         fun getApi() : FeedItemApi {
             val retrofitBuilder = Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)

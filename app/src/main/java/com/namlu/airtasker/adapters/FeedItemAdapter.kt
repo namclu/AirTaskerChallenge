@@ -39,7 +39,7 @@ class FeedItemAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class FeedItemViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val profileImage = itemView.image_profile
+        private val profileImage = itemView.image_profile!!
         val feedText = itemView.text_feed_text
         val createdAt = itemView.text_created_at
         val event = itemView.text_event
@@ -52,7 +52,7 @@ class FeedItemAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val formattedDate = inFormat.parse(viewState.feedItem.created_at)
             val imageUrl = Constants.BASE_URL + Constants.ANDROID_CODE_TEST_URL + viewState.profileItem?.avatar_mini_url
 
-            // Replace "{profileName} w name from profile and {taskName}" w take name in " "
+            // Replace "{profileName} w name from profile and {taskName}" w task name in " "
             val json = Gson().toJson(viewState.taskText)
             val newJson = json.replace("\"{profileName}", viewState.profileItem?.first_name.toString())
                 .replace("{taskName}\"", "\"${viewState.taskItem?.name.toString()}\"")
