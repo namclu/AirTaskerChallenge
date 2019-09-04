@@ -66,7 +66,6 @@ class FeedListActivity : BaseActivity() {
                     it.printStackTrace()
                 })
         )
-
     }
 
     override fun onDestroy() {
