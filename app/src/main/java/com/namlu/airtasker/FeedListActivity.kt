@@ -19,7 +19,7 @@ class FeedListActivity : BaseActivity() {
 
     private lateinit var feedItemAdapter: FeedItemAdapter
 
-    val disposables = CompositeDisposable()
+    private val disposables = CompositeDisposable()
 
     companion object {
         const val TAG = "FeedListActivity"

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.gson.Gson
 import com.namlu.airtasker.R
 import com.namlu.airtasker.models.FeedItemViewState
 import com.namlu.airtasker.util.Constants
@@ -51,7 +52,13 @@ class FeedItemAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val formattedDate = inFormat.parse(viewState.feedItem.created_at)
             val imageUrl = Constants.BASE_URL + Constants.ANDROID_CODE_TEST_URL + viewState.profileItem?.avatar_mini_url
 
-            feedText.text = viewState.taskText
+            // Replace "{profileName} w name from profile and {taskName}" w take name in " "
+            val json = Gson().toJson(viewState.taskText)
+            val newJson = json.replace("\"{profileName}", viewState.profileItem?.first_name.toString())
+                .replace("{taskName}\"", "\"${viewState.taskItem?.name.toString()}\"")
+
+
+            feedText.text = newJson
             createdAt.text = outFormat.format(formattedDate)
             event.text = viewState.event
 
