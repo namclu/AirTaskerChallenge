@@ -1,8 +1,6 @@
 package com.namlu.airtasker
 
-import android.app.Service
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.namlu.airtasker.adapters.FeedItemAdapter
 import com.namlu.airtasker.models.FeedItem
@@ -16,10 +14,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function3
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_feed_list.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.io.IOException
 
 class FeedListActivity : BaseActivity() {
 

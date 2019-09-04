@@ -4,10 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.namlu.airtasker.R
 import com.namlu.airtasker.models.FeedItemViewState
+import com.namlu.airtasker.util.Constants
 import kotlinx.android.synthetic.main.feed_list_item.view.*
 import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class FeedItemAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var feedItem: List<FeedItemViewState> = ArrayList()
@@ -33,20 +38,32 @@ class FeedItemAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class FeedItemViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val profileImage = itemView.image_profile
         val feedText = itemView.text_feed_text
         val createdAt = itemView.text_created_at
         val event = itemView.text_event
 
         // Format the date/time
-        var inFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX")
-        var outFormat = SimpleDateFormat("EE HH:mma")
+        var inFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX", Locale.getDefault())
+        var outFormat = SimpleDateFormat("EE HH:mma", Locale.getDefault())
 
         fun bind(viewState: FeedItemViewState) {
-            var formattedDate = inFormat.parse(viewState.feedItem.created_at)
+            val formattedDate = inFormat.parse(viewState.feedItem.created_at)
+            val imageUrl = Constants.BASE_URL + Constants.ANDROID_CODE_TEST_URL + viewState.profileItem?.avatar_mini_url
 
-            feedText.text = viewState.taskText + " " + viewState.profileItem?.avatar_mini_url + " - Hello"
+            feedText.text = viewState.taskText
             createdAt.text = outFormat.format(formattedDate)
             event.text = viewState.event
+
+            // Load image
+            val requestOptions = RequestOptions()
+                .placeholder(R.drawable.ic_launcher_background)
+                .error(R.drawable.ic_launcher_background)
+
+            Glide.with(itemView.context)
+                .applyDefaultRequestOptions(requestOptions)
+                .load(imageUrl)
+                .into(profileImage)
         }
     }
 }

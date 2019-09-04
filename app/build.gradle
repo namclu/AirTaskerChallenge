@@ -25,6 +25,7 @@ android {
 dependencies {
     def retrofitVersion = "2.6.1"
     def recyclerviewVersion = "1.0.0"
+    def glideVersion = "4.8.0"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -49,4 +50,8 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.12'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+
+    //glide
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
 }
